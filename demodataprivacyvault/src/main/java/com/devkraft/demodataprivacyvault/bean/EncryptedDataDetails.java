@@ -9,9 +9,9 @@ import javax.validation.constraints.NotEmpty;
 import java.io.*;
 import java.security.KeyPair;
 import java.util.Map;
+
 @Entity
-@Table(name = "encrypted_data_details",  schema = "public",
-        indexes = {@Index(columnList = "app_id, appOwner")})
+@Table(name = "encrypted_data_details")
 @Getter
 @Setter
 @ToString
@@ -19,18 +19,20 @@ import java.util.Map;
 @NoArgsConstructor
 public class EncryptedDataDetails implements Serializable {
 
-
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "entry_id")
-    private String entryId;
+    private Long entryId;
 
     @Column(name = "app_id")
     private String appId;
 
     @NotEmpty
+    @Column(name = "app_url")
     private String appUrl;
 
     @NotEmpty
+    @Column(name = "app_owner")
     private String appOwner;
 
     @NotEmpty
@@ -38,9 +40,8 @@ public class EncryptedDataDetails implements Serializable {
 
     @ElementCollection
     @MapKeyColumn(name = "data_key")
-    @Column(name = "data_value")
+    @Column(name = "data_value", length = 1000)
     @CollectionTable(name = "encrypted_data", joinColumns = {
-            @JoinColumn(name = "app_id", referencedColumnName = "app_id"),
             @JoinColumn(name = "entry_id", referencedColumnName = "entry_id")
     })
     private Map<String, String> encryptedData;

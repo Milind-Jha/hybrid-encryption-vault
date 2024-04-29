@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface EncryptedDataDAO extends JpaRepository<EncryptedDataDetails,String> {
+public interface EncryptedDataDAO extends JpaRepository<EncryptedDataDetails,Long> {
 
     List<EncryptedDataDetails> findByAppUrl(String appUrl);
     List<String> findEntryIdByAppId(String appId);

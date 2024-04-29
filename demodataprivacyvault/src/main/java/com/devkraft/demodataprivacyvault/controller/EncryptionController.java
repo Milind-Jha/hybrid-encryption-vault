@@ -27,7 +27,7 @@ public class EncryptionController {
     }
 
     @PostMapping(value = "/getDecryptedData/{entryId}", produces = "application/json")
-    public ResponseEntity<EncryptedDetailsResponse> getDecryptedData(@PathVariable String entryId,
+    public ResponseEntity<EncryptedDetailsResponse> getDecryptedData(@PathVariable Long entryId,
         @RequestBody String password) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(
                 encryptedDataService.retriveDecryptedDataDetails(entryId,password));
@@ -41,14 +41,14 @@ public class EncryptionController {
     }
 
     @PutMapping(value = "/updateEncryptedData/{entryId}")
-    public ResponseEntity<EncryptedDetailsResponse> updateEncryptedData(@PathVariable String entryId,
+    public ResponseEntity<EncryptedDetailsResponse> updateEncryptedData(@PathVariable Long entryId,
                                  @RequestBody EncryptedDataDetails newDetailstoEncrypt) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(
                 encryptedDataService.updateEncryptedDataDetails(entryId,newDetailstoEncrypt));
     }
 
-    @DeleteMapping(value = "/deleteEncryptedData/{entryId}")
-    public ResponseEntity<EncryptedDetailsResponse> deleteEncryptedData(@PathVariable String entryId,
+    @DeleteMapping(value = "/deleteAllUserEncryptedData/{entryId}")
+    public ResponseEntity<EncryptedDetailsResponse> deleteEncryptedData(@PathVariable Long entryId,
                                                                         @RequestBody String password) throws Exception {
         encryptedDataService.deleteEncryptedDataDetails(entryId,password);
         return ResponseEntity.noContent().build();

@@ -8,13 +8,13 @@ import javax.validation.Valid;
 public interface EncryptedDataService {
 
     public EncryptedDetailsResponse createEncryptedDataDetails(EncryptedDataDetails detailsToEncrypt) throws Exception;
-    public EncryptedDetailsResponse retriveDecryptedDataDetails(String entryId,String password) throws Exception;
+    public EncryptedDetailsResponse retriveDecryptedDataDetails(Long entryId,String password) throws Exception;
 
     public EncryptedDetailsResponse addEncryptedDataDetails(EncryptedDataDetails detailsToEncrypt) throws Exception;
 
-    public EncryptedDetailsResponse updateEncryptedDataDetails(String entryId,EncryptedDataDetails detailsToEncrypt) throws Exception;
+    public EncryptedDetailsResponse updateEncryptedDataDetails(Long entryId,EncryptedDataDetails detailsToEncrypt) throws Exception;
 
-    public void deleteEncryptedDataDetails(String entryId,String password) throws Exception;
+    public void deleteEncryptedDataDetails(Long entryId,String password) throws Exception;
 
 
 }

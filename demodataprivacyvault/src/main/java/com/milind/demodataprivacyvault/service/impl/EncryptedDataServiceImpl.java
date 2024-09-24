@@ -1,10 +1,10 @@
-package com.devkraft.demodataprivacyvault.service.impl;
+package com.milind.demodataprivacyvault.service.impl;
 
-import com.devkraft.demodataprivacyvault.bean.EncryptedDataDetails;
-import com.devkraft.demodataprivacyvault.dao.EncryptedDataDAO;
-import com.devkraft.demodataprivacyvault.response.EncryptedDetailsResponse;
-import com.devkraft.demodataprivacyvault.service.EncryptedDataService;
-import com.devkraft.demodataprivacyvault.util.DataEncryption;
+import com.milind.demodataprivacyvault.bean.EncryptedDataDetails;
+import com.milind.demodataprivacyvault.dao.EncryptedDataDAO;
+import com.milind.demodataprivacyvault.response.EncryptedDetailsResponse;
+import com.milind.demodataprivacyvault.service.EncryptedDataService;
+import com.milind.demodataprivacyvault.util.DataEncryption;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

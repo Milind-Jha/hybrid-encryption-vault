@@ -1,8 +1,8 @@
-package com.devkraft.demodataprivacyvault.controller;
+package com.milind.demodataprivacyvault.controller;
 
-import com.devkraft.demodataprivacyvault.bean.EncryptedDataDetails;
-import com.devkraft.demodataprivacyvault.response.EncryptedDetailsResponse;
-import com.devkraft.demodataprivacyvault.service.EncryptedDataService;
+import com.milind.demodataprivacyvault.bean.EncryptedDataDetails;
+import com.milind.demodataprivacyvault.response.EncryptedDetailsResponse;
+import com.milind.demodataprivacyvault.service.EncryptedDataService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

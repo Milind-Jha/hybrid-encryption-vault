@@ -1,6 +1,6 @@
-package com.devkraft.demodataprivacyvault.dao;
+package com.milind.demodataprivacyvault.dao;
 
-import com.devkraft.demodataprivacyvault.bean.EncryptedDataDetails;
+import com.milind.demodataprivacyvault.bean.EncryptedDataDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

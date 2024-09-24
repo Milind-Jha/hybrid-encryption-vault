@@ -1,4 +1,4 @@
-package com.devkraft.demodataprivacyvault.util;
+package com.milind.demodataprivacyvault.util;
 
 import javax.crypto.SecretKey;
 import java.security.KeyPair;

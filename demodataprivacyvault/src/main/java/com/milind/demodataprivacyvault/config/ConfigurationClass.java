@@ -1,4 +1,4 @@
-package com.devkraft.demodataprivacyvault.config;
+package com.milind.demodataprivacyvault.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

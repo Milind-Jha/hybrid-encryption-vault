@@ -1,7 +1,8 @@
-package com.devkraft.demodataprivacyvault.util.impl;
+package com.milind.demodataprivacyvault.util.impl;
 
-import com.devkraft.demodataprivacyvault.util.DataEncryption;
+import com.milind.demodataprivacyvault.util.DataEncryption;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -18,6 +19,7 @@ import java.util.Base64;
 
 @Component
 @Getter
+@Slf4j
 public class DataEncryptionImpl implements DataEncryption {
 
 
@@ -31,7 +33,9 @@ public class DataEncryptionImpl implements DataEncryption {
     public KeyPair generateKeyPair() throws Exception {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA_ALGORITHM);
         keyPairGenerator.initialize(2048);
-        return keyPairGenerator.generateKeyPair();
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        log.info("Generating RSA key pair "+keyPair);
+        return keyPair;
     }
 
     @Override
@@ -39,6 +43,7 @@ public class DataEncryptionImpl implements DataEncryption {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(AES_ALGORITHM);
         keyGenerator.init(AES_KEY_SIZE);
         SecretKey secretKey = keyGenerator.generateKey();
+        log.info("Generating AES key pair "+secretKey);
         return secretKey;
     }
     @Override

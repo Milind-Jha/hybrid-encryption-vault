@@ -1,9 +1,7 @@
-package com.devkraft.demodataprivacyvault.service;
+package com.milind.demodataprivacyvault.service;
 
-import com.devkraft.demodataprivacyvault.bean.EncryptedDataDetails;
-import com.devkraft.demodataprivacyvault.response.EncryptedDetailsResponse;
-
-import javax.validation.Valid;
+import com.milind.demodataprivacyvault.bean.EncryptedDataDetails;
+import com.milind.demodataprivacyvault.response.EncryptedDetailsResponse;
 
 public interface EncryptedDataService {
 

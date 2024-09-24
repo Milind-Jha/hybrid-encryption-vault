@@ -1,11 +1,9 @@
-package com.devkraft.demodataprivacyvault;
+package com.milind.demodataprivacyvault;
 
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.IOException;
 
 @SpringBootApplication
 public class DemodataprivacyvaultApplication {

@@ -1,4 +1,4 @@
-package com.devkraft.demodataprivacyvault;
+package com.milind.demodataprivacyvault;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

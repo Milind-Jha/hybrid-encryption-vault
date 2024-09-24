@@ -1,4 +1,4 @@
-package com.devkraft.demodataprivacyvault.bean;
+package com.milind.demodataprivacyvault.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.devkraft.demodataprivacyvault.response;
+package com.milind.demodataprivacyvault.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

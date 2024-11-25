@@ -1,14 +1,10 @@
-package com.devkraft.demodataprivacyvault.response;
+package com.milind.demodataprivacyvault.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.crypto.SecretKey;
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.security.KeyPair;
 import java.util.Map;
 
 @AllArgsConstructor

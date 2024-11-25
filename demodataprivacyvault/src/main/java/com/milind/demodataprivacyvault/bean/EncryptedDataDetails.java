@@ -1,26 +1,26 @@
-package com.devkraft.demodataprivacyvault.bean;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-
-import javax.crypto.SecretKey;
+package com.milind.demodataprivacyvault.bean;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.io.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.security.KeyPair;
 import java.util.Map;
+
 @Entity
-@Table(name = "encrypted_data_details",  schema = "public",
-        indexes = {@Index(columnList = "app_id, appOwner")})
+@Table(name = "your_table_name")
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class EncryptedDataDetails implements Serializable {
-
+public class EncryptedDataDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "entry_id")
     private String entryId;
 
@@ -36,6 +36,8 @@ public class EncryptedDataDetails implements Serializable {
     @NotEmpty
     private String password;
 
+    KeyPair keyPair;
+
     @ElementCollection
     @MapKeyColumn(name = "data_key")
     @Column(name = "data_value")
@@ -45,7 +47,5 @@ public class EncryptedDataDetails implements Serializable {
     })
     private Map<String, String> encryptedData;
 
-    @JsonIgnore
-    private KeyPair keyPair;
-
+    // Getters and setters
 }

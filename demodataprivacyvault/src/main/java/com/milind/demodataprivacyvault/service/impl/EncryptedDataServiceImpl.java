@@ -1,38 +1,38 @@
-package com.devkraft.demodataprivacyvault.service.impl;
+package com.milind.demodataprivacyvault.service.impl;
 
-import com.devkraft.demodataprivacyvault.bean.EncryptedDataDetails;
-import com.devkraft.demodataprivacyvault.dao.EncryptedDataDAO;
-import com.devkraft.demodataprivacyvault.response.EncryptedDetailsResponse;
-import com.devkraft.demodataprivacyvault.service.EncryptedDataService;
-import com.devkraft.demodataprivacyvault.util.DataEncryption;
+import com.milind.demodataprivacyvault.bean.EncryptedDataDetails;
+import com.milind.demodataprivacyvault.dao.EncryptedDataDAO;
+import com.milind.demodataprivacyvault.response.EncryptedDetailsResponse;
+import com.milind.demodataprivacyvault.service.EncryptedDataService;
+import com.milind.demodataprivacyvault.util.DataEncryption;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.security.KeyPair;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class EncryptedDataServiceImpl implements EncryptedDataService {
 
     private EncryptedDataDAO encryptedDataDAO;
-
     private ModelMapper modelMapper;
     private DataEncryption dataEncryption;
 
     public EncryptedDataServiceImpl(EncryptedDataDAO encryptedDataDAO, DataEncryption dataEncryption,
                                     ModelMapper modelMapper) {
-        this.encryptedDataDAO = encryptedDataDAO;
-        this.dataEncryption = dataEncryption;
-        this.modelMapper = modelMapper;
+        synchronized (this) {
+            this.encryptedDataDAO = encryptedDataDAO;
+            this.dataEncryption = dataEncryption;
+            this.modelMapper = modelMapper;
+        }
     }
 
     @Override
     public EncryptedDetailsResponse createEncryptedDataDetails(EncryptedDataDetails detailsToEncrypt) throws
             Exception {
         List<EncryptedDataDetails> detailsByUrl = encryptedDataDAO.findByAppUrl(detailsToEncrypt.getAppUrl());
+        System.out.println("AppUrl : "+detailsToEncrypt.getAppUrl());
         System.out.println("details to encrypt list : "+detailsByUrl);
         if(!detailsByUrl.isEmpty()){
             throw new Exception("Url already registered");
@@ -41,11 +41,13 @@ public class EncryptedDataServiceImpl implements EncryptedDataService {
         detailsToEncrypt.setEntryId(UUID.randomUUID().toString());
         Map<String, String> normalData = detailsToEncrypt.getEncryptedData();
         KeyPair keyPair = dataEncryption.generateKeyPair();
+        System.out.println(dataEncryption);
         detailsToEncrypt.setKeyPair(keyPair);
         Map<String, String> encryptedValues = normalData.entrySet().stream().collect(Collectors.toMap(
                 Map.Entry::getKey,
                 entry -> {
                     try {
+                        System.out.println(dataEncryption);
                         return dataEncryption.encryptData(entry.getValue(), keyPair.getPublic(), keyPair.getPrivate());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -66,14 +68,13 @@ public class EncryptedDataServiceImpl implements EncryptedDataService {
         if(detailsByUrl.isEmpty()){
             throw new Exception("Url not registered");
         }
-        if(!detailsToEncrypt.getPassword().equals(detailsByUrl.get(0).getPassword()))
-            throw new Exception("Wrong Password");
         detailsToEncrypt.setAppId(detailsByUrl.get(0).getAppId());
         detailsToEncrypt.setEntryId(UUID.randomUUID().toString());
-        Map<String, String> normalData = detailsToEncrypt.getEncryptedData();
+        Map<String, String> previousData = detailsToEncrypt.getEncryptedData();
         KeyPair keyPair = dataEncryption.generateKeyPair();
+        System.out.println(dataEncryption);
         detailsToEncrypt.setKeyPair(keyPair);
-        Map<String, String> encryptedValues = normalData.entrySet().stream().collect(Collectors.toMap(
+        Map<String, String> encryptedValues = previousData.entrySet().stream().collect(Collectors.toMap(
                 Map.Entry::getKey,
                 entry -> {
                     try {
@@ -86,20 +87,12 @@ public class EncryptedDataServiceImpl implements EncryptedDataService {
         detailsToEncrypt.setEncryptedData(encryptedValues);
         encryptedDataDAO.save(detailsToEncrypt);
         return  modelMapper.map(detailsToEncrypt,EncryptedDetailsResponse.class);
-
     }
 
     @Override
-    public EncryptedDetailsResponse retriveDecryptedDataDetails(String entryId,String password) throws Exception {
+    public EncryptedDetailsResponse retriveDecryptedDataDetails(String entryId) throws Exception {
         EncryptedDataDetails encryptedDataDetails = encryptedDataDAO.findById(entryId)
                 .orElseThrow(() -> new Exception("Data not found Invalid entryId"));
-        String[] split = password.split("\"");
-        String passwordFromJson = split[split.length-2];
-        if(!encryptedDataDetails.getPassword().equals(password) &&
-                !encryptedDataDetails.getPassword().equals(passwordFromJson)){
-            System.out.println(encryptedDataDetails.getPassword()+ " : "+password);
-            throw new Exception("Wrong Password");
-        }
         Map<String, String> encryptedData = encryptedDataDetails.getEncryptedData();
         KeyPair keyPair = encryptedDataDetails.getKeyPair();
         Map<String, String> decryptedValues = encryptedData.entrySet().stream().collect(Collectors.toMap(
@@ -112,6 +105,7 @@ public class EncryptedDataServiceImpl implements EncryptedDataService {
                     }
                 }
         ));
+        System.out.println(dataEncryption);
         encryptedDataDetails.setEncryptedData(decryptedValues);
         return modelMapper.map(encryptedDataDetails,EncryptedDetailsResponse.class);
     }
@@ -124,10 +118,6 @@ public class EncryptedDataServiceImpl implements EncryptedDataService {
         detailsToEncrypt.setAppUrl(encryptedDataDetails.getAppUrl());
         detailsToEncrypt.setAppOwner(encryptedDataDetails.getAppOwner());
         detailsToEncrypt.setAppId(encryptedDataDetails.getAppId());
-
-        if(!encryptedDataDetails.getPassword().equals(detailsToEncrypt.getPassword()))
-            throw new Exception("invalid password provided.");
-
         Map<String, String> normalData = detailsToEncrypt.getEncryptedData();
         KeyPair keyPair = dataEncryption.generateKeyPair();
         detailsToEncrypt.setKeyPair(keyPair);
@@ -142,22 +132,27 @@ public class EncryptedDataServiceImpl implements EncryptedDataService {
                     }
                 }
         ));
+        System.out.println(dataEncryption);
         detailsToEncrypt.setEncryptedData(encryptedValues);
         encryptedDataDAO.save(detailsToEncrypt);
         return modelMapper.map(detailsToEncrypt,EncryptedDetailsResponse.class);
     }
 
     @Override
-    public void deleteEncryptedDataDetails(String entryId, String password) throws Exception {
+    public void deleteEncryptedDataDetails(String entryId) throws Exception {
         EncryptedDataDetails encryptedDataDetails = encryptedDataDAO.findById(entryId)
                 .orElseThrow(() -> new Exception("Data not found Invalid entryId"));
-        String[] split = password.split("\"");
-        String passwordFromJson = split[split.length-2];
-        if(!encryptedDataDetails.getPassword().equals(password) &&
-                !encryptedDataDetails.getPassword().equals(passwordFromJson)){
-            System.out.println(encryptedDataDetails.getPassword()+ " : "+password);
-            throw new Exception("Wrong Password");
-        }
         encryptedDataDAO.deleteById(entryId);
+    }
+
+    @Override
+    public List<Map<String, String>> getDecryptedDataForAppId(String appId) {
+        List<Map<String,String>> mapList = new ArrayList<>();
+        List<EncryptedDataDetails> encryptedDataDetails = encryptedDataDAO.findEntryIdsByAppId(appId);
+        List<Map<String,String>> data = new ArrayList<>();
+        encryptedDataDetails.forEach(encryptedDataDetail -> {
+            mapList.add(encryptedDataDetail.getEncryptedData());
+        });
+        return mapList;
     }
 }

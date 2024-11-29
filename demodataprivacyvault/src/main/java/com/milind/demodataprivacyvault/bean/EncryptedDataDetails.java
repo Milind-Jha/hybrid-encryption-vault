@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.security.KeyPair;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.LongStream;
 
 @Entity
 @Table(name = "your_table_name")
@@ -46,6 +47,5 @@ public class EncryptedDataDetails {
             @JoinColumn(name = "entry_id", referencedColumnName = "entry_id")
     })
     private Map<String, String> encryptedData;
-
-    // Getters and setters
 }
+

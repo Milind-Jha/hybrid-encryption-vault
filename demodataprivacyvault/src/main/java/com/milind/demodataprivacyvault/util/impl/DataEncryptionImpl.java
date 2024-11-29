@@ -40,7 +40,7 @@ public class DataEncryptionImpl implements DataEncryption {
     @Override
     public KeyPair generateKeyPair() throws Exception {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA_ALGORITHM);
-        keyPairGenerator.initialize(2048);
+        keyPairGenerator.initialize(128);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
         log.info("Generating RSA key pair "+keyPair);
         return keyPair;

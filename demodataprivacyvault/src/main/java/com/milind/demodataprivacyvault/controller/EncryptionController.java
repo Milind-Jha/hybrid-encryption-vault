@@ -3,13 +3,16 @@ package com.milind.demodataprivacyvault.controller;
 import com.milind.demodataprivacyvault.bean.EncryptedDataDetails;
 import com.milind.demodataprivacyvault.response.EncryptedDetailsResponse;
 import com.milind.demodataprivacyvault.service.EncryptedDataService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@RestController("/encryption")
+@RestController
+@RequestMapping("/encryption")
+@Slf4j
 public class EncryptionController {
     private EncryptedDataService encryptedDataService;
     public EncryptionController(EncryptedDataService encryptedDataService) {
@@ -18,6 +21,7 @@ public class EncryptionController {
     @PostMapping(value = "/createEncryptedData" , produces = "application/json")
     public ResponseEntity<EncryptedDetailsResponse> createEncryptedData(
             @Valid@RequestBody EncryptedDataDetails dataToEncrypt) throws Exception {
+        log.info("entered endpoint -> createEncryptedData");
         return  ResponseEntity.status(HttpStatus.CREATED).body(
                 encryptedDataService.createEncryptedDataDetails(dataToEncrypt));
     }

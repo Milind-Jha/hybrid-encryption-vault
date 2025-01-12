@@ -6,17 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.security.KeyPair;
 import java.util.Map;
 
 @Entity
-@Table(name = "your_table_name")
+@Table(name = "encrypted_data_details")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EncryptedDataDetails {
+public class EncryptedDataDetails implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +38,8 @@ public class EncryptedDataDetails {
     @NotEmpty
     private String password;
 
-    KeyPair keyPair;
+    @Column(name = "key_pair")
+    private KeyPair keyPair;
 
     @ElementCollection
     @MapKeyColumn(name = "data_key")

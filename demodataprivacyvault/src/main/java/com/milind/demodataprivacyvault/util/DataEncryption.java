@@ -9,7 +9,6 @@ public interface DataEncryption {
 
     String RSA_ALGORITHM = "RSA";
     String AES_ALGORITHM = "AES";
-    int AES_KEY_SIZE = 256;
 
     KeyPair generateKeyPair() throws Exception;
     SecretKey generateSecretKey() throws Exception;

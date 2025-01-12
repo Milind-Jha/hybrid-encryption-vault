@@ -2,6 +2,8 @@ package com.milind.demodataprivacyvault.util.impl;
 
 import com.milind.demodataprivacyvault.util.DataEncryption;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.Singular;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -20,19 +22,22 @@ import java.util.Base64;
 @Component
 @Getter
 @Slf4j
-public class DataEncryptionImpl implements DataEncryption {
+@Setter
+public class FastDataEncryptionImpl implements DataEncryption {
 
-    private static DataEncryptionImpl dataEncryption;
+    private static FastDataEncryptionImpl dataEncryption;
     private KeyPair keyPair;
     private SecretKey secretKey = generateSecretKey();
+    private int AES_KEY_SIZE = 256;
+    private int RSA_KEY_SIZE = 256;
 
-    private DataEncryptionImpl() throws Exception {
+    private FastDataEncryptionImpl() throws Exception {
     }
 
-    public static DataEncryptionImpl getInstance() throws Exception {
-        synchronized (DataEncryptionImpl.class){
+    public static FastDataEncryptionImpl getInstance() throws Exception {
+        synchronized (FastDataEncryptionImpl.class){
             if(dataEncryption==null)
-                dataEncryption = new DataEncryptionImpl();
+                dataEncryption = new FastDataEncryptionImpl();
         }
         return dataEncryption;
     }
@@ -40,7 +45,7 @@ public class DataEncryptionImpl implements DataEncryption {
     @Override
     public KeyPair generateKeyPair() throws Exception {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA_ALGORITHM);
-        keyPairGenerator.initialize(2048);
+        keyPairGenerator.initialize(RSA_KEY_SIZE);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
         log.info("Generating RSA key pair "+keyPair);
         return keyPair;

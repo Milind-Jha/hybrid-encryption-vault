@@ -1,0 +1,14 @@
+Copyright © 2024 Milind Jha
+
+This software is licensed for commercial use under the terms specified below. 
+
+Permission is hereby granted to use, copy, modify, and distribute this software in binary or source form for commercial purposes only by obtaining a valid license agreement 
+from the author Milind Jha.
+
+Any use of this software, in whole or in part, for commercial purposes without a signed commercial license agreement is strictly prohibited.
+
+Contact:
+Milind Jha
+jhamilind61@gmail.com
+
+All rights reserved.

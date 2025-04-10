@@ -25,19 +25,17 @@ This is the industry-standard approach used in HTTPS, secure messaging, and encr
 - Java Crypto APIs/Spring Boot 2
 - Maven (or Gradle, optional)
 
-## 🛡️ Commercial Licensing
+This project uses a dual license:
 
-This project is available under a dual-license model.
+- ✅ **Free for educational & research use** under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+- 💼 **Commercial use requires a Per-Deployment License**.  
+  A license is required for each deployment in a production environment.
 
-- **Free for educational and research use** under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
-- **Commercial use requires a license**. Contact [jhamilind61@gmail.com](jhamilind61@gmail.com) to request a commercial license and pricing.
+🔐 For pricing and licensing terms, contact [jhamilind61@gmail.com](mailto:jhamilind61@gmail.com)
+
+See [`LICENSE-COMMERCIAL.txt`](./LICENSE-COMMERCIAL.txt) for details.
+
 
 Please refer to [`LICENSE-COMMERCIAL.txt`](./LICENSE-COMMERCIAL.txt) for commercial terms.
 
 
----
-
-## 🛠️ Getting Started
-
-### 1. Clone the Repository
-```bash

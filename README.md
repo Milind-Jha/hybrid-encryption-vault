@@ -22,8 +22,18 @@ This is the industry-standard approach used in HTTPS, secure messaging, and encr
 ## 🧰 Tech Stack
 
 - Java 17+
-- BouncyCastle / Java Crypto APIs
+- Java Crypto APIs/Spring Boot 2
 - Maven (or Gradle, optional)
+
+## 🛡️ Commercial Licensing
+
+This project is available under a dual-license model.
+
+- **Free for educational and research use** under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+- **Commercial use requires a license**. Contact [jhamilind61@gmail.com](jhamilind61@gmail.com) to request a commercial license and pricing.
+
+Please refer to [`LICENSE-COMMERCIAL.txt`](./LICENSE-COMMERCIAL.txt) for commercial terms.
+
 
 ---
 

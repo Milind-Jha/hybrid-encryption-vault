@@ -8,7 +8,7 @@
 		<version>2.7.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.devkraft</groupId>
+	<groupId>com.milind</groupId>
 	<artifactId>demodataprivacyvault</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demodataprivacyvault</name>
